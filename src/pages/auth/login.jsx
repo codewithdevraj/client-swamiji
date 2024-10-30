@@ -28,7 +28,7 @@ const Login = ({ toggleForm }) => {
       );
       toast.success(response.data.message);
 
-      const expire = new Date(Date.now() + 60000); //expire in 1 minute
+      const expire = new Date( Date.now() + 6 * 24 * 60 * 60 * 1000 ); //expire in 6 days
 
       const token = response.data.token;
       Cookies.set("token", token, { expires: expire });

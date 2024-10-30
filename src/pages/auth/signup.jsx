@@ -25,8 +25,8 @@ const Register = ({toggleForm}) => {
       const response = await axios.post(`${serverUrl}/auth/user/register`, formData);
       if (response.status === 201) {
         toast.success( response.data.message );
-        
-        const expire = new Date(Date.now() + 60000); //expire in 1 minute
+
+        const expire = new Date(Date.now() + 6 * 24 * 60 * 60 * 1000); //expire in 1 minute
 
         const token = response.data.token;
         Cookies.set("token", token, { expires: expire });
