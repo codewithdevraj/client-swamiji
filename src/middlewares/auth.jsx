@@ -8,8 +8,8 @@ const verifyUser = async (navigate) => {
     const token = getCookieValue("token");
     const sessionId = getCookieValue("sessionId");
 
-    console.log("Token:", token);
-    console.log("SessionId:", sessionId);
+    // console.log("Token:", token);
+    // console.log("SessionId:", sessionId);
 
     if (token && sessionId) {
       const response = await axios.post(
