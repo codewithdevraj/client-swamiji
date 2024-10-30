@@ -22,11 +22,16 @@ const Register = ({toggleForm}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${serverUrl}/auth/user/register`, formData, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${serverUrl}/auth/user/register`, formData);
       if (response.status === 201) {
-        toast.success(response.data.message);
+        toast.success( response.data.message );
+        const token = response.data.token;
+        Cookies.set("token", token, { expires: 6 });
+
+        const sessionId = response.data.sessionId;
+        Cookies.set("sessionId", sessionId, {
+          expires: 6,
+        });
         setTimeout(() => {
           navigate("/");
         }, 2000);

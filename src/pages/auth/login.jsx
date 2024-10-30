@@ -3,10 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 const serverUrl = import.meta.env.VITE_SERVER;
 
-const Login = ({toggleForm}) => {
+const Login = ({ toggleForm }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -21,10 +22,20 @@ const Login = ({toggleForm}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${serverUrl}/auth/user/login`, formData, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${serverUrl}/auth/user/login`,
+        formData
+      );
       toast.success(response.data.message);
+
+      const token = response.data.token;
+      Cookies.set("token", token, { expires: 6 });
+
+      const sessionId = response.data.sessionId;
+      Cookies.set("sessionId", sessionId, {
+        expires: 6,
+      });
+
       setTimeout(() => {
         navigate("/"); // redirect to home page
       }, 2000);
