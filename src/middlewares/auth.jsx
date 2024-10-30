@@ -6,7 +6,10 @@ const serverUrl = import.meta.env.VITE_SERVER;
 const verifyUser = async (navigate) => {
   try {
     const token = getCookieValue("token");
-    const sessionId = getCookieValue("sessionId");
+    const sessionId = getCookieValue( "sessionId" );
+    const test = getCookieValue( "test" );
+
+    console.log( test );
 
     // console.log("Token:", token);
     // console.log("SessionId:", sessionId);
