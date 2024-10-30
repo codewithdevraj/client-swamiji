@@ -29,12 +29,10 @@ const Login = ({ toggleForm }) => {
       toast.success(response.data.message);
 
       const token = response.data.token;
-      Cookies.set("token", token, { expires: 6 });
+      Cookies.set("token", token);
 
       const sessionId = response.data.sessionId;
-      Cookies.set("sessionId", sessionId, {
-        expires: 6,
-      });
+      Cookies.set("sessionId", sessionId);
 
       setTimeout(() => {
         navigate("/"); // redirect to home page
