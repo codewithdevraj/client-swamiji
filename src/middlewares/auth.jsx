@@ -30,7 +30,7 @@ const verifyUser = async (navigate) => {
       throw new Error("No token or sessionId found. Please log in again.");
     }
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     navigate("/auth"); // Redirect to login if verification fails
     return false; // User is not verified
   }
