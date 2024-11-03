@@ -12,6 +12,7 @@ const Login = ({ toggleForm }) => {
     username: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,14 +22,15 @@ const Login = ({ toggleForm }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
     try {
       const response = await axios.post(
-        `${serverUrl}/auth/user/login`,
+        "https://swamijiserver.codewithdevraj.live/auth/user/login",
         formData
       );
       toast.success(response.data.message);
 
-      const expire = new Date( Date.now() + 6 * 24 * 60 * 60 * 1000 ); //expire in 6 days
+      const expire = new Date(Date.now() + 6 * 24 * 60 * 60 * 1000); // Expires in 6 days
 
       const token = response.data.token;
       Cookies.set("token", token, { expires: expire });
@@ -37,12 +39,14 @@ const Login = ({ toggleForm }) => {
       Cookies.set("sessionId", sessionId, { expires: expire });
 
       setTimeout(() => {
-        navigate("/"); // redirect to home page
+        navigate("/"); // Redirect to home page
       }, 2000);
     } catch (err) {
       toast.error(
-        err.response?.data?.message || "An error occurred while logging in."
+        err?.response?.data?.message || "An error occurred while logging in."
       );
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -72,7 +76,9 @@ const Login = ({ toggleForm }) => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Verifying..." : "Login"}
+        </button>
       </form>
       <p className="toggle-link" onClick={toggleForm}>
         Don't have an account? Sign Up

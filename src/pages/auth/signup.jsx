@@ -22,7 +22,10 @@ const Register = ({toggleForm}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${serverUrl}/auth/user/register`, formData);
+      const response = await axios.post(
+        "https://swamijiserver.codewithdevraj.live/auth/user/register",
+        formData
+      );
       if (response.status === 201) {
         toast.success( response.data.message );
 

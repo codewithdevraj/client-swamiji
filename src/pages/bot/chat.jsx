@@ -50,6 +50,7 @@ const Chat = () => {
   if (isLoading) {
     return <div>Loading...</div>; // Display loading screen until verification is complete
   }
+  
 
   return (
     <main className="chat-container">
